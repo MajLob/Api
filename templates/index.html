@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<h2>Customers</h2>
+{% endblock %}
+
+{% block body %} 
+<div class="content">
+    {% if customers|length < 1 %}
+    <h4> There are no customers</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>last name</th>
+            <th>date</th>
+            <th>actions</th>
+        </tr>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.last_name }}</td>
+                <td>{{ customer.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{customer.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{customer.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif%}
+
+    <form action="/" method="POST">
+        <input type="text" name="name" placeholder="Enter name" id='content'>
+        <input type="text" name="last_name" placeholder="Enter last name" id='content'>
+        <input type="submit" value="Add Customer">
+    </form>
+</div>
+
+{% endblock %}
